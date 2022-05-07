@@ -1,0 +1,64 @@
+.meniCard {
+	height: 270px;
+	width: 600px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+	border-radius: 15px;
+	padding: 10px;
+	background-color: #3f4f66;
+	box-shadow: 7px 8px 18px -3px rgba(0, 0, 0, 0.6);
+}
+
+.meniCardSlika {
+	height: auto;
+	width: 290px;
+	border-radius: 15px;
+}
+
+.meniCardPodatki {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+}
+
+.meniCardPodatkiNaslov {
+	text-align: center;
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.meniCardPodatkiVsebina {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 5px 10px;
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.meniCardBtn {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	margin-top: 10px;
+	font-size: 1.5rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.meniCardNaroci {
+	color: rgb(0, 194, 0);
+}
+
+.meniCardOdpovej {
+	color: rgb(255, 34, 34);
+}

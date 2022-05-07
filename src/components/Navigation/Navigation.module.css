@@ -1,0 +1,36 @@
+.navigation {
+	width: 75%;
+	height: auto;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+.links {
+	height: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	list-style-type: none;
+}
+
+.link {
+	color: #9b9fa5;
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.linkActive {
+	color: white;
+	/* border-bottom: 2px solid white; */
+}
+
+.linkOdjava {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 5px;
+	color: rgb(255, 34, 34);
+}

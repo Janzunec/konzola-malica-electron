@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import NarocenaMalica from './pages/Naroceno/NarocenaMalica';
+import OdpovedMalice from './pages/Odpoved/OdpovedMalice';
+import Prijava from './pages/Prijava/Prijava';
+import NarociloMalice from './pages/Narocilo/NarociloMalice';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<Routes>
+				<Route path='/' element={<Prijava />} />
+				<Route path='/naroceno' element={<NarocenaMalica />} />
+				<Route path='/narocilo' element={<NarociloMalice />} />
+				<Route path='/odpoved' element={<OdpovedMalice />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;

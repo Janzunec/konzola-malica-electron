@@ -1,0 +1,20 @@
+.odpoved {
+	width: 75%;
+	height: auto;
+	margin: 10px auto 0 auto;
+}
+
+.odpovedTitle {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 30px;
+}
+
+.naroceneMalice {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	gap: 40px 0;
+}
