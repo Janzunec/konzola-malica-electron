@@ -1,6 +1,6 @@
 .meniCard {
-	height: 270px;
-	width: 600px;
+	height: 250px;
+	width: 250px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -8,14 +8,14 @@
 	border-radius: 15px;
 	padding: 10px;
 	background-color: #3f4f66;
-	box-shadow: 7px 8px 18px -3px rgba(0, 0, 0, 0.6);
+	box-shadow: 3px 6px 18px -3px rgba(0, 0, 0, 0.6);
 }
 
-.meniCardSlika {
+/* .meniCardSlika {
 	height: auto;
 	width: 290px;
 	border-radius: 15px;
-}
+} */
 
 .meniCardPodatki {
 	width: 100%;

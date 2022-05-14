@@ -13,20 +13,31 @@ const MeniCard = (props) => {
 	};
 
 	const narociMalicoHandler = () => {
-		malicaCtx.onNarociMalico(props.id);
+		malicaCtx.onNarociMalico(props.id, props.datum);
 	};
+
+	const dnevi = [
+		'Ponedeljek',
+		'Torek',
+		'Sreda',
+		'Četrtek',
+		'Petek',
+		'Sobota',
+	];
 
 	return (
 		<div className={style.meniCard}>
-			<div>
-				<img
-					src={props.slika}
-					alt={props.ime}
-					title={props.ime}
-					className={style.meniCardSlika}
-				/>
-			</div>
 			<div className={style.meniCardPodatki}>
+				{location.pathname !== '/narocilo' && (
+					<div>
+						{`${
+							dnevi[props.datum.getDay() - 1]
+						} - ${props.datum.toLocaleDateString('sl-SI', {
+							month: '2-digit',
+							day: '2-digit',
+						})}`}
+					</div>
+				)}
 				<div className={style.meniCardPodatkiNaslov}>{props.ime}</div>
 				<div className={style.meniCardPodatkiVsebina}>
 					{props.vsebina.map((izdelek, i) => (
@@ -57,4 +68,4 @@ const MeniCard = (props) => {
 	);
 };
 
-export default React.memo(MeniCard);
+export default MeniCard;

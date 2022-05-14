@@ -6,6 +6,7 @@ import style from './NarociloMalice.module.css';
 
 const NarociloMalice = () => {
 	const [meniji, setMeniji] = useState([]);
+	const [chosenDate, setChosenDate] = useState();
 
 	const maliceCtx = useContext(MaliceContext);
 
@@ -25,8 +26,8 @@ const NarociloMalice = () => {
 
 	const getDateString = (date) =>
 		`${dnevi[date.getDay() - 1]} - ${date.toLocaleDateString('sl-SI', {
-			day: 'numeric',
-			month: 'long',
+			month: '2-digit',
+			day: '2-digit',
 		})}`;
 
 	const firstDay = new Date();
@@ -38,9 +39,19 @@ const NarociloMalice = () => {
 	const thirdDay = new Date();
 	thirdDay.setDate(thirdDay.getDate() + 5);
 
+	useEffect(() => {
+		setChosenDate(firstDay);
+	}, []);
+
 	const firstDayString = getDateString(firstDay);
 	const secondDayString = getDateString(secondDay);
 	const thirdDayString = getDateString(thirdDay);
+
+	const changeDateHandler = (e) => {
+		const selectedDate = new Date(e.target.value);
+		console.log(selectedDate);
+		setChosenDate(selectedDate);
+	};
 
 	return (
 		<React.Fragment>
@@ -56,6 +67,8 @@ const NarociloMalice = () => {
 							name='datum'
 							id='datumi'
 							className={style.narociloSelect}
+							onChange={changeDateHandler}
+							defaultValue={firstDay}
 						>
 							<option value={firstDay}>{firstDayString}</option>
 							<option value={secondDay}>{secondDayString}</option>
@@ -74,6 +87,7 @@ const NarociloMalice = () => {
 								vsebina={malica.vsebina}
 								tip={malica.tip}
 								slika={malica.slika}
+								datum={chosenDate}
 							/>
 						))}
 					</div>

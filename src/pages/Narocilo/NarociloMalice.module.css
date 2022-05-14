@@ -48,8 +48,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	margin: 30px auto 0 auto;
-	gap: 40px 0;
+	gap: 3rem;
 }

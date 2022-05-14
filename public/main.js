@@ -9,14 +9,14 @@ function createWindow() {
 	const win = new BrowserWindow({
 		width: 1920,
 		height: 1080,
-		titleBarStyle: 'hidden',
-		titleBarOverlay: {
-			color: '#343e4e',
-			symbolColor: '#bbb',
-		},
+		// titleBarStyle: 'hidden',
+		// titleBarOverlay: {
+		// 	color: '#343e4e',
+		// 	symbolColor: '#bbb',
+		// },
 		webPreferences: {
-			enableRemoteModule: true,
-			nodeIntegration: true,
+			// enableRemoteModule: true,
+			// nodeIntegration: true,
 		},
 		icon: __dirname + '/console.png',
 	});

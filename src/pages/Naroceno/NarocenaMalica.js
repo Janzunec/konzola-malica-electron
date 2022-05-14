@@ -7,6 +7,7 @@ import style from './NarocenaMalica.module.css';
 
 const NarocenaMalica = (props) => {
 	const maliceCtx = useContext(MaliceContext);
+	console.log(maliceCtx.malice);
 	// const [naroceneMalice, setNaroceneMalice] = useState([]);
 
 	// useEffect(() => {
@@ -30,6 +31,7 @@ const NarocenaMalica = (props) => {
 							vsebina={malica.vsebina}
 							tip={malica.tip}
 							slika={malica.slika}
+							datum={malica.datum}
 						/>
 					))}
 				</div>

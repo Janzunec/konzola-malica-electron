@@ -36,6 +36,7 @@ const OdpovedMalice = (props) => {
 							vsebina={malica.vsebina}
 							tip={malica.tip}
 							slika={malica.slika}
+							datum={malica.datum}
 						/>
 					))}
 				</div>

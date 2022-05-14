@@ -43,7 +43,7 @@ const MaliceContext = React.createContext({
 	user: '',
 	setUser: () => {},
 	fetchMalice: () => {},
-	onNarociMalico: (id) => {},
+	onNarociMalico: (id, datum) => {},
 	onOdpovejMalico: (id) => {},
 	fetchMeniji: (dan) => {},
 });
@@ -55,6 +55,7 @@ export const MaliceContextProvider = (props) => {
 	const chooseRandomMalica = () => {
 		const randomId = Math.floor(Math.random() * 4 + 1);
 		const malica = MENIIJI.find((meni) => meni.id === randomId);
+		malica.datum = new Date();
 		return malica;
 	};
 
@@ -63,7 +64,7 @@ export const MaliceContextProvider = (props) => {
 	};
 
 	const fetchMalice = (user) => {
-		const fetchedMalice = [chooseRandomMalica(), chooseRandomMalica()];
+		const fetchedMalice = [chooseRandomMalica()];
 		const maliceUpdated = [...malice, ...fetchedMalice];
 		setMalice([...maliceUpdated]);
 		return maliceUpdated;
@@ -73,9 +74,15 @@ export const MaliceContextProvider = (props) => {
 		fetchMalice();
 	}, []);
 
-	const onNarociMalico = (id) => {
+	const onNarociMalico = (id, datum) => {
 		// const indexMalice = malice.map((malica) => malica.id).indexOf(id);
-		const maliceUpdated = [...malice, MENIIJI[id - 1]];
+		const maliceUpdated = [
+			...malice,
+			{
+				datum,
+				...MENIIJI[id - 1],
+			},
+		];
 		setMalice([...maliceUpdated]);
 	};
 

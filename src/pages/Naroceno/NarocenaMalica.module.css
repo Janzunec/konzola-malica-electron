@@ -4,8 +4,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 10px auto;
-	gap: 30px;
+	margin: 3rem auto;
+	gap: 2rem;
 }
 
 .naroceniMeniji {
@@ -13,6 +13,13 @@
 	height: auto;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
-	gap: 1rem 0;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.naroceno-gumbi {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 30px;
 }
