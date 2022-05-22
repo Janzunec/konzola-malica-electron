@@ -13,7 +13,7 @@ const MeniCard = (props) => {
 	};
 
 	const narociMalicoHandler = () => {
-		malicaCtx.onNarociMalico(props.id, props.datum);
+		malicaCtx.onNarociMalico(props.id, props.datum.toISOString());
 	};
 
 	const dnevi = [
@@ -31,11 +31,14 @@ const MeniCard = (props) => {
 				{location.pathname !== '/narocilo' && (
 					<div>
 						{`${
-							dnevi[props.datum.getDay() - 1]
-						} - ${props.datum.toLocaleDateString('sl-SI', {
-							month: '2-digit',
-							day: '2-digit',
-						})}`}
+							dnevi[new Date(props.datum).getDay() - 1]
+						} - ${new Date(props.datum).toLocaleDateString(
+							'sl-SI',
+							{
+								month: '2-digit',
+								day: '2-digit',
+							}
+						)}`}
 					</div>
 				)}
 				<div className={style.meniCardPodatkiNaslov}>{props.ime}</div>

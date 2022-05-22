@@ -7,6 +7,7 @@ import style from './NarociloMalice.module.css';
 const NarociloMalice = () => {
 	const [meniji, setMeniji] = useState([]);
 	const [chosenDate, setChosenDate] = useState();
+	const [malicaIsNarocena, setMalicaIsNarocena] = useState(false);
 
 	const maliceCtx = useContext(MaliceContext);
 
@@ -15,6 +16,18 @@ const NarociloMalice = () => {
 		setMeniji([...fetchedMeniji]);
 	}, [maliceCtx]);
 
+	const checkNaroceno = (datum) => {
+		const narocenaMalicaIndex = maliceCtx.malice.findIndex((malica) => {
+			const malicaDate = new Date(malica.datum);
+			return malicaDate.getDate() === datum.getDate();
+		});
+		if (narocenaMalicaIndex === -1) {
+			setMalicaIsNarocena(false);
+			return;
+		}
+		setMalicaIsNarocena(true);
+	};
+
 	const dnevi = [
 		'Ponedeljek',
 		'Torek',
@@ -22,6 +35,7 @@ const NarociloMalice = () => {
 		'Četrtek',
 		'Petek',
 		'Sobota',
+		'Nedelja',
 	];
 
 	const getDateString = (date) =>
@@ -30,17 +44,31 @@ const NarociloMalice = () => {
 			day: '2-digit',
 		})}`;
 
+	let dayDelay = 0;
 	const firstDay = new Date();
 	firstDay.setDate(firstDay.getDate() + 3);
 
+	if (firstDay.getDay() === 5) {
+		dayDelay = 2;
+	}
+	if (firstDay.getDay() === 6) {
+		dayDelay = 2;
+		firstDay.setDate(firstDay.getDate() + 2);
+	}
+	if (firstDay.getDay() === 0) {
+		dayDelay = 1;
+		firstDay.setDate(firstDay.getDate() + 1);
+	}
+
 	const secondDay = new Date();
-	secondDay.setDate(secondDay.getDate() + 4);
+	secondDay.setDate(secondDay.getDate() + (4 + dayDelay));
 
 	const thirdDay = new Date();
-	thirdDay.setDate(thirdDay.getDate() + 5);
+	thirdDay.setDate(thirdDay.getDate() + (5 + dayDelay));
 
 	useEffect(() => {
 		setChosenDate(firstDay);
+		checkNaroceno(firstDay);
 	}, []);
 
 	const firstDayString = getDateString(firstDay);
@@ -49,6 +77,7 @@ const NarociloMalice = () => {
 
 	const changeDateHandler = (e) => {
 		const selectedDate = new Date(e.target.value);
+		checkNaroceno(selectedDate);
 		console.log(selectedDate);
 		setChosenDate(selectedDate);
 	};
@@ -76,22 +105,30 @@ const NarociloMalice = () => {
 						</select>
 					</label>
 				</div>
-				<div className={style.narociloMain}>
-					<div className={style.narociloTitle}>Izberi meni:</div>
-					<div className={style.narociloMeniji}>
-						{meniji.map((malica) => (
-							<MeniCard
-								key={malica.id}
-								id={malica.id}
-								ime={malica.ime}
-								vsebina={malica.vsebina}
-								tip={malica.tip}
-								slika={malica.slika}
-								datum={chosenDate}
-							/>
-						))}
+				{!malicaIsNarocena && (
+					<div className={style.narociloMain}>
+						<div className={style.narociloTitle}>Izberi meni:</div>
+						<div className={style.narociloMeniji}>
+							{meniji.map((malica) => (
+								<MeniCard
+									key={malica.id}
+									id={malica.id}
+									ime={malica.ime}
+									vsebina={malica.vsebina}
+									tip={malica.tip}
+									slika={malica.slika}
+									datum={chosenDate}
+								/>
+							))}
+						</div>
 					</div>
-				</div>
+				)}
+				{malicaIsNarocena && (
+					<div className={style.errorMsg}>
+						{' '}
+						Malica za ta dan je že naročena
+					</div>
+				)}
 			</div>
 		</React.Fragment>
 	);

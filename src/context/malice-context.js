@@ -55,7 +55,7 @@ export const MaliceContextProvider = (props) => {
 	const chooseRandomMalica = () => {
 		const randomId = Math.floor(Math.random() * 4 + 1);
 		const malica = MENIIJI.find((meni) => meni.id === randomId);
-		malica.datum = new Date();
+		malica.datum = new Date().toISOString();
 		return malica;
 	};
 
@@ -79,8 +79,8 @@ export const MaliceContextProvider = (props) => {
 		const maliceUpdated = [
 			...malice,
 			{
-				datum,
 				...MENIIJI[id - 1],
+				datum,
 			},
 		];
 		setMalice([...maliceUpdated]);

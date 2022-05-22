@@ -53,3 +53,9 @@
 	margin: 30px auto 0 auto;
 	gap: 3rem;
 }
+
+.errorMsg {
+	margin-top: 35vh;
+	font-size: 2rem;
+	color: #b0b4bb;
+}
