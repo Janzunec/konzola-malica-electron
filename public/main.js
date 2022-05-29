@@ -7,13 +7,13 @@ const isDev = require('electron-is-dev');
 
 function createWindow() {
 	const win = new BrowserWindow({
-		width: 1920,
-		height: 1080,
-		titleBarStyle: 'hidden',
-		titleBarOverlay: {
-			color: '#343e4e',
-			symbolColor: '#bbb',
-		},
+		width: 800,
+		height: 600,
+		// titleBarStyle: 'hidden',
+		// titleBarOverlay: {
+		// 	color: '#343e4e',
+		// 	symbolColor: '#bbb',
+		// },
 		webPreferences: {
 			enableRemoteModule: true,
 			nodeIntegration: true,

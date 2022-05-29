@@ -3,21 +3,18 @@ import Navigation from '../../components/Navigation/Navigation';
 import MeniCard from '../../components/UI/Cards/MeniCard';
 import MaliceContext from '../../context/malice-context';
 import style from './NarociloMalice.module.css';
+import { useSelector } from 'react-redux';
 
 const NarociloMalice = () => {
 	const [meniji, setMeniji] = useState([]);
 	const [chosenDate, setChosenDate] = useState();
 	const [malicaIsNarocena, setMalicaIsNarocena] = useState(false);
 
-	const maliceCtx = useContext(MaliceContext);
-
-	useEffect(() => {
-		const fetchedMeniji = maliceCtx.fetchMeniji();
-		setMeniji([...fetchedMeniji]);
-	}, [maliceCtx]);
+	const malice = useSelector((state) => state.malice.malice);
+	const narocenaMalica = useSelector((state) => state.malice.narocenaMalica);
 
 	const checkNaroceno = (datum) => {
-		const narocenaMalicaIndex = maliceCtx.malice.findIndex((malica) => {
+		const narocenaMalicaIndex = narocenaMalica.findIndex((malica) => {
 			const malicaDate = new Date(malica.datum);
 			return malicaDate.getDate() === datum.getDate();
 		});
@@ -69,7 +66,7 @@ const NarociloMalice = () => {
 	useEffect(() => {
 		setChosenDate(firstDay);
 		checkNaroceno(firstDay);
-	}, []);
+	}, [narocenaMalica]);
 
 	const firstDayString = getDateString(firstDay);
 	const secondDayString = getDateString(secondDay);
@@ -109,14 +106,13 @@ const NarociloMalice = () => {
 					<div className={style.narociloMain}>
 						<div className={style.narociloTitle}>Izberi meni:</div>
 						<div className={style.narociloMeniji}>
-							{meniji.map((malica) => (
+							{malice.map((malica) => (
 								<MeniCard
 									key={malica.id}
 									id={malica.id}
 									ime={malica.ime}
 									vsebina={malica.vsebina}
 									tip={malica.tip}
-									slika={malica.slika}
 									datum={chosenDate}
 								/>
 							))}

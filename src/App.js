@@ -4,8 +4,23 @@ import NarocenaMalica from './pages/Naroceno/NarocenaMalica';
 import OdpovedMalice from './pages/Odpoved/OdpovedMalice';
 import Prijava from './pages/Prijava/Prijava';
 import NarociloMalice from './pages/Narocilo/NarociloMalice';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMalice } from './state/reducers/maliceSlice';
+
+let isInitial = false;
 
 function App() {
+	const malice = useSelector((state) => state.malice.malice);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!isInitial) {
+			dispatch(fetchMalice());
+			isInitial = true;
+		}
+	}, [malice, dispatch]);
+
 	return (
 		<div className='App'>
 			<Routes>

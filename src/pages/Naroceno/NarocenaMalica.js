@@ -1,19 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '../../components/Navigation/Navigation';
 import MalicaBtn from '../../components/UI/Buttons/MalicaBtn';
 import MeniCard from '../../components/UI/Cards/MeniCard';
-import MaliceContext from '../../context/malice-context';
+import { fetchNarocenaMalica } from '../../state/reducers/maliceSlice';
 import style from './NarocenaMalica.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+
+let isInitial = false;
 
 const NarocenaMalica = (props) => {
-	const maliceCtx = useContext(MaliceContext);
-	console.log(maliceCtx.malice);
-	// const [naroceneMalice, setNaroceneMalice] = useState([]);
+	const narocenaMalica = useSelector((state) => state.malice.narocenaMalica);
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	const fetchedMalice = maliceCtx.fetchMalice();
-	// 	setNaroceneMalice([...fetchedMalice]);
-	// }, []);
+	useEffect(() => {
+		if (!isInitial) {
+			dispatch(fetchNarocenaMalica());
+			console.log('fetched');
+			isInitial = true;
+		}
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -23,14 +28,13 @@ const NarocenaMalica = (props) => {
 					Naročena malica za danes:
 				</div>
 				<div className={style.naroceniMeniji}>
-					{maliceCtx.malice.map((malica, i) => (
+					{narocenaMalica.map((malica, i) => (
 						<MeniCard
 							key={i}
 							id={i}
 							ime={malica.ime}
 							vsebina={malica.vsebina}
 							tip={malica.tip}
-							slika={malica.slika}
 							datum={malica.datum}
 						/>
 					))}

@@ -35,6 +35,7 @@ const Prijava = () => {
 				<input
 					name='ID_zaposlenega'
 					placeholder='ID zaposlenega'
+					type='password'
 					onChange={idZaposlenegaInputHandler}
 					className={style.prijavaInput}
 					ref={inputRef}
