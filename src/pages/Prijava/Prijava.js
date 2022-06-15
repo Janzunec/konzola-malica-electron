@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { authAction } from '../../state/reducers/authSlice';
 import style from './Prijava.module.css';
 
 const Prijava = () => {
 	const [zaposleniID, setZaposleniID] = useState('');
-
-	// To keepam, če slučajno na microsoft edgu na konzoli autoFocus nebi deloval
 	const inputRef = useRef(null);
+
+	const api_key = useSelector((state) => state.auth.api_key);
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		inputRef.current.focus();
@@ -15,12 +20,40 @@ const Prijava = () => {
 	const handleOnBlur = () => {
 		if (zaposleniID === '') inputRef.current.focus();
 	};
-	const navigate = useNavigate();
 
 	const submitFunctionHandler = (e) => {
 		e.preventDefault();
-		if (zaposleniID === '25502729') {
-			navigate('/naroceno');
+		console.log(api_key);
+		const inputCode = inputRef.current.value;
+		const fetchData = async () => {
+			const req = fetch(
+				`https://portal.mikro-polo.si/api/users?X-API-KEY=${api_key}&access_code=${inputCode}`,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+			console.log(req);
+			const res = req.then((res) => res.json()).then((data) => data);
+			console.log();
+
+			// if (!res.ok) {
+			// 	const errorMsg = res.json().then((data) => data);
+			// 	throw new Error(errorMsg.message);
+			// }
+
+			// const userData = res.json().then((data) => data);
+			// console.log(userData);
+			// return await userData;
+		};
+
+		try {
+			const data = fetchData();
+			console.log(data);
+			// dispatch(authAction.logIn(data));
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
