@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { API_KEY } from '../../private/API_KEYS';
 import { authAction } from '../../state/reducers/authSlice';
 import style from './Prijava.module.css';
 
 const Prijava = () => {
 	const [zaposleniID, setZaposleniID] = useState('');
-	const inputRef = useRef(null);
+	const [errorMsg, setErrorMsg] = useState('');
 
-	const api_key = useSelector((state) => state.auth.api_key);
+	const inputRef = useRef(null);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -23,35 +24,40 @@ const Prijava = () => {
 
 	const submitFunctionHandler = (e) => {
 		e.preventDefault();
-		console.log(api_key);
+
 		const inputCode = inputRef.current.value;
-		const fetchData = async () => {
-			const req = fetch(
-				`https://portal.mikro-polo.si/api/users?X-API-KEY=${api_key}&access_code=${inputCode}`,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
-			console.log(req);
-			const res = req.then((res) => res.json()).then((data) => data);
-			console.log();
-
-			// if (!res.ok) {
-			// 	const errorMsg = res.json().then((data) => data);
-			// 	throw new Error(errorMsg.message);
-			// }
-
-			// const userData = res.json().then((data) => data);
-			// console.log(userData);
-			// return await userData;
-		};
 
 		try {
-			const data = fetchData();
-			console.log(data);
-			// dispatch(authAction.logIn(data));
+			const fetchData = async () => {
+				const req = await fetch(
+					`https://portal.mikro-polo.si/api/users?X-API-KEY=${API_KEY}&access_code=${inputCode}`,
+					{
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}
+				);
+
+				if (!req.ok) {
+					if (req.status === 404) {
+						const error = 'Uporabnik s to kodo ne obstaja!';
+						setErrorMsg(error);
+						throw new Error(error);
+					}
+					if (req.status === 403) {
+						const error = 'Dostop zavrnjen!';
+						setErrorMsg(error);
+						throw new Error(error);
+					}
+				}
+
+				const userData = await req.json();
+				setErrorMsg('');
+				dispatch(authAction.logIn(userData));
+				navigate('/naroceno');
+			};
+
+			fetchData();
 		} catch (error) {
 			console.log(error);
 		}
@@ -64,6 +70,7 @@ const Prijava = () => {
 	return (
 		<div className={style.prijava}>
 			<div className={style.prijavaTitle}>Poskenirajte svojo kartico</div>
+			{errorMsg !== '' && <div className={style.error}>{errorMsg}</div>}
 			<form onSubmit={submitFunctionHandler}>
 				<input
 					name='ID_zaposlenega'

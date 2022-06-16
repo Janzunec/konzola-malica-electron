@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Navigation from '../../components/Navigation/Navigation';
 import MeniCard from '../../components/UI/Cards/MeniCard';
-import MaliceContext from '../../context/malice-context';
 import style from './NarociloMalice.module.css';
 import { useSelector } from 'react-redux';
 
@@ -75,7 +74,6 @@ const NarociloMalice = () => {
 	const changeDateHandler = (e) => {
 		const selectedDate = new Date(e.target.value);
 		checkNaroceno(selectedDate);
-		console.log(selectedDate);
 		setChosenDate(selectedDate);
 	};
 

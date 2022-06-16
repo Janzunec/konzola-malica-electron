@@ -49,11 +49,9 @@ const maliceSlice = createSlice({
 			state.narocenaMalica = action.payload.naroceno;
 		},
 		narociMalico(state, action) {
-			console.log(action.payload);
 			state.narocenaMalica.push(action.payload.malica);
 		},
 		odpovejMalico(state, action) {
-			console.log(action.payload.id);
 			state.narocenaMalica.splice(action.payload.id, 1);
 		},
 	},

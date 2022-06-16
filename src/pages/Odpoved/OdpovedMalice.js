@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import Navigation from '../../components/Navigation/Navigation';
 import MeniCard from '../../components/UI/Cards/MeniCard';
-import MaliceContext from '../../context/malice-context';
 import style from './OdpovedMalice.module.css';
 import { useSelector } from 'react-redux';
 
