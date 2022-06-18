@@ -14,7 +14,7 @@ const NarocenaMalica = (props) => {
 
 	useEffect(() => {
 		if (!isInitial) {
-			dispatch(fetchNarocenaMalica());
+			// dispatch(fetchNarocenaMalica());
 			isInitial = true;
 		}
 	}, []);

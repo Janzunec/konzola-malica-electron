@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { API_KEY } from '../../private/API_KEYS';
 
 const MENIIJI = [
 	{
@@ -58,37 +59,53 @@ const maliceSlice = createSlice({
 });
 
 export const fetchMalice = () => {
-	return (dispatch) => {
-		dispatch(
-			maliceActions.setMalice({
-				malice: MENIIJI,
-			})
-		);
-		return;
+	return async (dispatch) => {
+		// dispatch(
+		// 	maliceActions.setMalice({
+		// 		malice: MENIIJI,
+		// 	})
+		// );
+		// return;
+
+		try {
+			const req = await fetch(
+				`https://portal.mikro-polo.si/api/menus?X-API-KEY=${API_KEY}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+			const data = await req.json().then((data) => data);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
-const chooseRandomMalica = () => {
-	const randomId = Math.floor(Math.random() * 4 + 1);
-	const malica = MENIIJI.find((meni) => meni.id === randomId);
-	const malicaTransformed = {
-		...malica,
-		datum: new Date().toISOString(),
-	};
-	return malicaTransformed;
-};
+// const chooseRandomMalica = () => {
+// 	const randomId = Math.floor(Math.random() * 4 + 1);
+// 	const malica = MENIIJI.find((meni) => meni.id === randomId);
+// 	const malicaTransformed = {
+// 		...malica,
+// 		datum: new Date().toISOString(),
+// 	};
+// 	return malicaTransformed;
+// };
 
-export const fetchNarocenaMalica = () => {
-	return (dispatch) => {
-		const fetchedMalice = [chooseRandomMalica()];
-		dispatch(
-			maliceActions.setNarocenaMalica({
-				naroceno: fetchedMalice,
-			})
-		);
-		return;
-	};
-};
+// export const fetchNarocenaMalica = () => {
+// 	return (dispatch) => {
+// 		const fetchedMalice = [chooseRandomMalica()];
+// 		dispatch(
+// 			maliceActions.setNarocenaMalica({
+// 				naroceno: fetchedMalice,
+// 			})
+// 		);
+// 		return;
+// 	};
+// };
 
 export const maliceActions = maliceSlice.actions;
 
